@@ -1,0 +1,28 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div>
+    <form action="." method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="module aligned">
+            <div class="form-row">
+                <label for="csv_file">CSV File:</label>
+                <input type="file" id="csv_file" name="csv_file" accept=".csv" required>
+            </div>
+            <div class="form-row">
+                <label for="client_id">Client:</label>
+                <select name="client_id" id="client_id" required>
+                    <option value="">---------</option>
+                    {% for client in clients %}
+                    <option value="{{ client.id }}">{{ client.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </fieldset>
+        <div class="submit-row">
+            <input type="submit" value="Upload CSV" class="default">
+        </div>
+    </form>
+</div>
+{% endblock %}
