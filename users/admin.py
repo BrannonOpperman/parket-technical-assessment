@@ -3,15 +3,30 @@ from django.shortcuts import render
 from django.urls import path
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.admin import SimpleListFilter
 import csv
 import io
 
 from clients.models import Client
 from .models import ParketUser
 
+class ClientListFilter(SimpleListFilter):
+    title = 'client'
+    parameter_name = 'client'
+
+    def lookups(self, request, model_admin):
+        if request.user.is_superuser:
+            return [(c.id, c.name) for c in Client.objects.all()]
+        return [(c.id, c.name) for c in request.user.administered_clients.all()]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(client_id=self.value())
+        return queryset
+
 class ParketUserAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'license_plate', 'client')
-    list_filter = ('client',)
+    list_filter = (ClientListFilter,)
     search_fields = ('first_name', 'last_name', 'email', 'license_plate')
 
     change_list_template = "admin/parketuser_changelist.html"
