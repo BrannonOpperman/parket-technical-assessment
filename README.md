@@ -98,6 +98,21 @@ pip install -r requirements.txt
    - API endpoints will be available at http://127.0.0.1:8000/api/
    - Django admin interface at http://127.0.0.1:8000/admin/
 
+### Django Admin Interface
+
+The Django Admin interface provides a web-based management interface accessible at http://127.0.0.1:8000/admin/
+
+Administrator users can:
+- Log in using their credentials (same as API authentication)
+- View and manage Parket Users only for their assigned clients
+- Use the CSV bulk upload feature:
+  1. Click "PARKET USERS" in the admin dashboard
+  2. Click "UPLOAD CSV" button in the top right
+  3. Select a client and CSV file
+  4. Upload to create multiple users at once
+
+> **Note:** The admin interface automatically filters data based on the administrator's client permissions, ensuring they can only see and manage users belonging to their clients.
+
 ## API Documentation
 
 ### Authentication
