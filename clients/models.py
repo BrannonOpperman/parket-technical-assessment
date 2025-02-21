@@ -9,7 +9,7 @@ class Client(models.Model):
         User,
         blank=True,
         related_name='administered_clients',
-        help_text="Users who can manage parking users for this client"
+        help_text="Users who can manage parket users for this client"
     )
 
     def __str__(self):

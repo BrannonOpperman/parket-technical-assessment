@@ -9,15 +9,15 @@ class ParketUser(models.Model):
     client = models.ForeignKey(
         'clients.Client',
         on_delete=models.CASCADE,
-        related_name='parking_users'
+        related_name='parket_users'
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ['email', 'client']
-        verbose_name = 'Parking User'
-        verbose_name_plural = 'Parking Users'
+        verbose_name = 'Parket User'
+        verbose_name_plural = 'Parket Users'
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - ({self.license_plate})"
