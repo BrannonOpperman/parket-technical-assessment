@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
-from .serializers import ClientSerializer
+from .serializers import ClientSerializer, AdminUserSerializer
 
 class ClientViewSet(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
@@ -15,3 +15,8 @@ class ClientViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+class AdminUserViewSet(viewsets.ModelViewSet):
+    serializer_class = AdminUserSerializer
+    permission_classes = [AllowAny]  # Only for development, should be restricted in production
+    http_method_names = ['post']  # Only allow POST method
