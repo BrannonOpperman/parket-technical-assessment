@@ -1,6 +1,6 @@
 from django.db import models
 
-class ParkingUser(models.Model):
+class ParketUser(models.Model):
     """User model for the parking system"""
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
