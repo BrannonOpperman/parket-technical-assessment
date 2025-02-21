@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from .models import Client
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -24,6 +24,20 @@ class AdminUserSerializer(serializers.ModelSerializer):
         user = User.objects.create(**validated_data)
         user.set_password(password)
         user.is_staff = True
+
+        # Add required permissions for ParketUser model
+        from users.models import ParketUser
+        from django.contrib.contenttypes.models import ContentType
+
+        content_type = ContentType.objects.get_for_model(ParketUser)
+        Permission.objects.filter(content_type=content_type).values_list('codename', flat=True)
+        content_type = ContentType.objects.get_for_model(ParketUser)
+        permissions = Permission.objects.filter(
+            content_type=content_type,
+            codename__in=['add_parketuser', 'change_parketuser', 'view_parketuser', 'delete_parketuser']
+        )
+        user.user_permissions.add(*permissions)
+
         user.save()
 
         # Link administrator user to client
