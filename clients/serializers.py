@@ -23,7 +23,7 @@ class AdminUserSerializer(serializers.ModelSerializer):
 
         user = User.objects.create(**validated_data)
         user.set_password(password)
-        user.is_staff
+        user.is_staff = True
         user.save()
 
         # Link administrator user to client
