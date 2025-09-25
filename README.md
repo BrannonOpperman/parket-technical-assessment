@@ -1,3 +1,7 @@
+## Archived: This project is not being actively maintained as it was built for a technical assessment submission
+
+------
+
 # Parket Technical Assessment
 
 ## Table Of Contents
